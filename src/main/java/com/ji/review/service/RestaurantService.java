@@ -67,11 +67,14 @@ public class RestaurantService {
 
             menuRepository.save(menuEntity);
         });
-
-
     }
 
     @Transactional
-    public void deleteRestaurant() {
+    public void deleteRestaurant(Long restaurantId) {
+        RestaurantEntity restaurant = restaurantRepository.findById(restaurantId).orElseThrow(() -> new RuntimeException("없는 레스토랑입니다"));
+        restaurantRepository.delete(restaurant);
+
+        List<MenuEntity> menus = menuRepository.findAllByRestaurantId(restaurantId);
+        menuRepository.deleteAll(menus);
     }
 }
