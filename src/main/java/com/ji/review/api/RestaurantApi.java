@@ -18,35 +18,14 @@ public class RestaurantApi {
 
     @GetMapping("/restaurants")
     public List<RestaurantView> getRestaurants() {
-        return List.of(RestaurantView.builder()
-                .id(0L)
-                .name("test name")
-                .address("test address")
-                .createdAt(ZonedDateTime.now())
-                .updatedAt(ZonedDateTime.now())
-                .build());
+        return restaurantService.getAllRestaurants();
     }
 
     @GetMapping("/restaurant/{restaurantId}")
     public RestaurantDetailView getRestaurant(
             @PathVariable Long restaurantId
     ) {
-        return RestaurantDetailView.builder()
-                .id(0L)
-                .name("test name")
-                .address("test address")
-                .createdAt(ZonedDateTime.now())
-                .updatedAt(ZonedDateTime.now())
-                .menus(List.of(
-                        RestaurantDetailView.Menu.builder()
-                                .id(0L)
-                                .name("test menu name")
-                                .price(500)
-                                .createdAt(ZonedDateTime.now())
-                                .updatedAt(ZonedDateTime.now())
-                                .build()
-                ))
-                .build();
+        return restaurantService.getRestaurantDetail(restaurantId);
     }
 
     @PostMapping("/restaurant")
